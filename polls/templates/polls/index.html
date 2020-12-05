@@ -1,14 +1,24 @@
+{% extends 'polls/base.html' %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+{% block title %}Polling App | Home{% endblock title %}
 
-<h1>Welcome to PollApp</h1>
-{% if latest_question_list%}
-    <ul>
-        {% for question in latest_question_list %}
-            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No Polls available here.</p>
-{% endif %}
+{% block main %}
+<div class="card">
+    <div class="card-header">
+        Active Polls
+    </div>
+    {% if latest_question_list%}
+        <ul class="list-group list-group-flush">
+            {% for question in latest_question_list %}
+                <li class="list-group-item"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="card-body">
+            <p class="card-text">No Polls available here.</p>
+        </div>
+    {% endif %}
+
+{% endblock%}
+</div>
